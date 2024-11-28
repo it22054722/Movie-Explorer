@@ -108,7 +108,7 @@ const Home = () => {
 
   // Styles for dark mode
   const darkModeStyles = {
-    backgroundColor: darkMode ? '#1c1c1c' : '#f9f9f9',
+    backgroundColor: darkMode ? '#1c1c1c' : 'rgba(255, 255, 255, 0.6)', // Semi-transparent white for light mode
     color: darkMode ? '#f1f1f1' : '#333',
     transition: 'background-color 0.3s, color 0.3s',
     minHeight: '100vh',
