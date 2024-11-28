@@ -5,6 +5,7 @@ import { fetchMovieDetails } from '../services/tmdb'; // Importing the TMDb API 
 const Favourites = () => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => JSON.parse(localStorage.getItem('darkMode')) || false); // Retrieve dark mode state
 
   // Fetch favorites from localStorage on initial load
   useEffect(() => {
@@ -18,6 +19,15 @@ const Favourites = () => {
     const updatedFavorites = favorites.filter((movie) => movie.id !== movieId);
     setFavorites(updatedFavorites);
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  };
+
+  // Add a function to toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(prevMode => {
+      const newMode = !prevMode;
+      localStorage.setItem('darkMode', JSON.stringify(newMode)); // Store dark mode state
+      return newMode;
+    });
   };
 
   return (

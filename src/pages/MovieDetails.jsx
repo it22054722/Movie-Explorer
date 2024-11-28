@@ -9,6 +9,7 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState([]); // State to hold the favorite movies
+  const [darkMode, setDarkMode] = useState(() => JSON.parse(localStorage.getItem('darkMode')) || false); // Retrieve dark mode state
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -41,6 +42,15 @@ const MovieDetails = () => {
 
   // Check if the movie is in the favorites list
   const isFavorite = favorites.some(fav => fav.id === movie?.id);
+
+  // Add a function to toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(prevMode => {
+      const newMode = !prevMode;
+      localStorage.setItem('darkMode', JSON.stringify(newMode)); // Store dark mode state
+      return newMode;
+    });
+  };
 
   if (loading) {
     return <div>Loading...</div>;

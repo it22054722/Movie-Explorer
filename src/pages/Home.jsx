@@ -18,7 +18,7 @@ const Home = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [watchlist, setWatchlist] = useState(() => JSON.parse(localStorage.getItem('watchlist')) || []);
-  const [darkMode, setDarkMode] = useState(false); // State for dark mode toggle
+  const [darkMode, setDarkMode] = useState(() => JSON.parse(localStorage.getItem('darkMode')) || false); // Retrieve dark mode state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -98,6 +98,14 @@ const Home = () => {
 
   const isInWatchlist = (movieId) => watchlist.some((movie) => movie.id === movieId);
 
+  const toggleDarkMode = () => {
+    setDarkMode(prevMode => {
+      const newMode = !prevMode;
+      localStorage.setItem('darkMode', JSON.stringify(newMode)); // Store dark mode state
+      return newMode;
+    });
+  };
+
   // Styles for dark mode
   const darkModeStyles = {
     backgroundColor: darkMode ? '#1c1c1c' : '#f9f9f9',
@@ -112,7 +120,7 @@ const Home = () => {
       {/* Switch Icon for Dark/Light Mode */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <button
-          onClick={() => setDarkMode(!darkMode)}
+          onClick={toggleDarkMode}
           style={{
             background: 'transparent',
             border: 'none',

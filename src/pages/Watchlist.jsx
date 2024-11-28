@@ -7,6 +7,7 @@ const Watchlist = () => {
   const navigate = useNavigate();
   const initialWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
   const [watchlist, setWatchlist] = useState(initialWatchlist); // State for watchlist
+  const [darkMode, setDarkMode] = useState(() => JSON.parse(localStorage.getItem('darkMode')) || false); // Retrieve dark mode state
 
   // Toggle favorite movie and remove from watchlist if unmarked
   const toggleFavorite = (movieId) => {
@@ -14,6 +15,15 @@ const Watchlist = () => {
       const updatedWatchlist = prevWatchlist.filter(movie => movie.id !== movieId); // Remove movie from watchlist
       localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist)); // Update local storage
       return updatedWatchlist;
+    });
+  };
+
+  // Add a function to toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(prevMode => {
+      const newMode = !prevMode;
+      localStorage.setItem('darkMode', JSON.stringify(newMode)); // Store dark mode state
+      return newMode;
     });
   };
 
